@@ -13,6 +13,7 @@ namespace InterfazdeBeers
     public class BeersModel : PageModel
     {
         public List<Beer> Beers { get; set; }
+        public object BeerID { get; set; }
         public string Marca { get; set; }
         public string Origen { get; set; }
         public string Tipo { get; set; }
@@ -27,18 +28,17 @@ namespace InterfazdeBeers
         [HttpGet]
         public void OnGet()
         {
-            var client = new RestClient("https://localhost:44371/api/Beers");
+            var beer = new RestClient("https://localhost:44371/api/Beers");
             var request = new RestRequest(Method.GET);
             request.AddHeader("content-type", "application/json");
-            IRestResponse response = client.Execute(request);
+            IRestResponse response = beer.Execute(request);
             Beers = JsonConvert.DeserializeObject<List<Beer>>(response.Content);
-            //bug->no acepta valor nulo, no cogue los datos
             Beers.Where(b=>b.Marca == "Heineken").ToList();
         }
         [HttpPost]
         public void OnPost()
         {
-            var client = new RestClient("https://localhost:44371/api/Beers");
+            var beer = new RestClient("https://localhost:44371/api/Beers");
             var request = new RestRequest(Method.POST);
 
             request.AddHeader("cache-control", "no-cache");
@@ -51,9 +51,35 @@ namespace InterfazdeBeers
             request.AddParameter("Grados", Grados);
             request.AddParameter("Imagen", Imagen);
 
-            IRestResponse response = client.Execute(request);
+            IRestResponse response = beer.Post(request);
+            
             OnGet();
         }
-       
+
+        [HttpDelete]
+        public void OnPostDelete()
+        {
+            var beer = new RestClient("https://localhost:44371/api/Beers");
+            var request = new RestRequest(Method.DELETE);
+
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("content-type", "application/x-www-form-urlencoded");
+
+            request.AddParameter("_id", BeerID);
+            request.AddParameter("Marca", Marca);
+            request.AddParameter("Origen", Origen);
+            request.AddParameter("Tipo", Tipo);
+            request.AddParameter("Grados", Grados);
+            request.AddParameter("Imagen", Imagen);
+
+            IRestResponse response = beer.Execute(request);
+            OnGet();
+        }
+
+        [HttpPut]
+        public void OnPostUpdate()
+        {
+
+        }
     }
 }

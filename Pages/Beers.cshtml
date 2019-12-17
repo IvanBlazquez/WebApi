@@ -45,18 +45,30 @@
             </tr>;
         }
     </table>
-    <div id="AddBeers">
-        <h1>Add Beer</h1>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Data</span>
-            </div>
-            <input type="text" id="marca" aria-label="Marca" placeholder="Marca" class="form-control">
-            <input type="text" id="origen" aria-label="Origen" placeholder="Origen" class="form-control">
-            <input type="text" id="tipo" aria-label="Tipo" placeholder="Tipo" class="form-control">
-            <input type="text" id="grados" aria-label="Grados" placeholder="Grados" class="form-control">
-            <input type="text" id="imagen" aria-label="Imagen(URL)" placeholder="Imagen(URL)" class="form-control">
-        </div>
-        <button type="button" class="btn btn-primary btn-lg btn-block" id="AddBeer" formmethod="post">Add</button>
-    </div>
+
+    <!--INSERTAR va a la funcion subyacente de OnPost-->
+    <form asp-page-handler="post" method="post">
+        <input type="text" id="marca" aria-label="Marca" placeholder="Marca" class="form-control">
+        <input type="text" id="origen" aria-label="Origen" placeholder="Origen" class="form-control">
+        <input type="text" id="tipo" aria-label="Tipo" placeholder="Tipo" class="form-control">
+        <input type="text" id="grados" aria-label="Grados" placeholder="Grados" class="form-control">
+        <input type="text" id="imagen" aria-label="Imagen(URL)" placeholder="Imagen(URL)" class="form-control">
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="AddBeer">Add</button>
+    </form>
+    <hr />
+    <!--DELETE va a la funcion subyacente de OnPostDelete-->
+    <form asp-page-handler="delete" method="post">
+        <input asp-for="BeerID" type="text" id="marca" aria-label="Marca" placeholder="BeerID" class="form-control">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Delete</button>
+    </form>
+    <hr />
+    <!--UPDATE va a la funcion subyacente de OnPostUpdate--->
+    <form asp-page-handler="update" method="put">
+        <input type="text" id="marca" aria-label="Marca" placeholder="Marca" class="form-control">
+        <input type="text" id="origen" aria-label="Origen" placeholder="Origen" class="form-control">
+        <input type="text" id="tipo" aria-label="Tipo" placeholder="Tipo" class="form-control">
+        <input type="text" id="grados" aria-label="Grados" placeholder="Grados" class="form-control">
+        <input type="text" id="imagen" aria-label="Imagen(URL)" placeholder="Imagen(URL)" class="form-control">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Update</button>
+    </form>
 </div>
